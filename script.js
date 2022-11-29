@@ -14,6 +14,7 @@ let round = 0
 let userWins = 0
 let computerWins = 0 
 let finalResult
+let win
 
 possibleChoices.forEach(possibleChoice => possibleChoice.addEventListener('click', (e) => {
     userChoice = e.target.id
@@ -64,6 +65,7 @@ function game(){
     }
 
     const body = document.querySelector('.results')
+    const body2 = document.querySelector('#results-container')
     const newElement = document.createElement('li')
     newElement.getAttribute("id", "newElement")
     const elementText = document.createTextNode('You ' + result + '. The game is ' + userWins + '-' + computerWins)
@@ -75,8 +77,10 @@ function game(){
 
     if(userWins > computerWins){
         finalResult = 'You won!'
+        win = 'true'
     }else if(computerWins > userWins){
-        finalResult = 'You loss!'
+        finalResult = 'You lost!'
+        win = 'false'
     }else if(round === 5){
         round = 4;
     }
@@ -85,8 +89,9 @@ function game(){
         const resultElement = document.createElement('p')
         const resultText = document.createTextNode(finalResult)
         resultElement.appendChild(resultText)
-        resultElement.getAttribute("class", "final-result")
-        body.appendChild(resultElement)
+        resultElement.setAttribute("class", win)
+        console.log(resultElement)
+        body2.appendChild(resultElement)
         rockButton.disabled = true
         paperButton.disabled = true
         scissorsButton.disabled = true

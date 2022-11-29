@@ -1,7 +1,10 @@
-const possibleChoices = document.querySelectorAll('button')
+const possibleChoices = document.querySelectorAll('.js-button')
 const rockButton = document.querySelector('#rock')
 const paperButton = document.querySelector('#paper')
 const scissorsButton = document.querySelector('#scissors')
+const resetBtn = document.querySelector('#reset');
+
+resetBtn.addEventListener('click',() => location.reload());
 
 let userChoice
 let computerChoice
@@ -36,7 +39,7 @@ function getComputerChoice(){
 
 function getResult(){
     if(userChoice === computerChoice){
-        result = 'draw'
+        result = 'tied'
     }else if(userChoice === 'rock' && computerChoice === 'paper'){
         result = 'loss'
     }else if(userChoice === 'rock' && computerChoice === 'scissors'){
@@ -50,6 +53,7 @@ function getResult(){
     }else if(userChoice === 'scissors' && computerChoice === 'paper'){
         result = 'win'
     }
+    console.log(userChoice, computerChoice)
 }
 
 function game(){
@@ -60,14 +64,13 @@ function game(){
     }
 
     const body = document.querySelector('.results')
+    const newElement = document.createElement('li')
+    newElement.getAttribute("id", "newElement")
+    const elementText = document.createTextNode('You ' + result + '. The game is ' + userWins + '-' + computerWins)
+    newElement.appendChild(elementText)
     if(round < 5){ 
-        const newElement = document.createElement('p')
-        const elementText = document.createTextNode('You ' + result + '. The game is ' + userWins + '-' + computerWins)
-        newElement.appendChild(elementText)
-        console.log(body)
         body.appendChild(newElement)
         round++
-        console.log(possibleChoices)
     }
 
     if(userWins > computerWins){
@@ -82,9 +85,10 @@ function game(){
         const resultElement = document.createElement('p')
         const resultText = document.createTextNode(finalResult)
         resultElement.appendChild(resultText)
-        body.appendChild(resultElement)        
-        rockButton.setAttribute('disabled', '');
-        paperButton.setAttribute('disabled', '');
-        scissorsButton.setAttribute('disabled', '');
+        resultElement.getAttribute("class", "final-result")
+        body.appendChild(resultElement)
+        rockButton.disabled = true
+        paperButton.disabled = true
+        scissorsButton.disabled = true
     }
 }
